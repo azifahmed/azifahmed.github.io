@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mediaqueries.css" />
+</head>
+
+<body>
+  <nav id="desktop-nav">
+    <div class="logo">Asif Ahmed</div>
+    <div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#recommend">Recommendations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+  <nav id="hamburger-nav">
+    <div class="logo">Asif Ahmed</div>
+    <div class="hamburger-menu">
+      <div class="hamburger-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="menu-links">
+        <li><a href="#about" onclick="toggleMenu()">About</a></li>
+        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+        <li><a href="#recommend" onclick="toggleMenu()">Recommendations</a></li>
+        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+      </div>
+    </div>
+  </nav>
+  <section id="profile">
+    <div class="section__pic-container">
+      <img src="./assets/profile-pic.png" alt="Asif Ahmed profile picture" />
+    </div>
+    <div class="section__text">
+      <p class="section__text__p1">Hello, I'm</p>
+      <h1 class="title">Asif Ahmed</h1>
+      <p class="section__text__p2">Software Developer</p>
+      <div class="btn-container">
+        <button class="btn btn-color-2" onclick="window.open('./assets/asif.pdf')">
+          Download CV
+        </button>
+        <button class="btn btn-color-1" onclick="toggleMenu()">
+          Contact Info
+        </button>
+      </div>
+      <div id="socials-container">
+        <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon"
+          onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/'" />
+        <img src="./assets/github.png" alt="My Github profile" class="icon"
+          onclick="location.href='https://github.com/azifahmed'" />
+      </div>
+    </div>
+  </section>
+  <section id="about">
+    <p class="section__text__p1">Get To Know More</p>
+    <h1 class="title">About Me</h1>
+    <div class="section-container">
+      <div class="section__pic-container">
+        <img src="./assets/about-pic.png" alt="Profile picture" class="about-pic" />
+      </div>
+      <div class="about-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <img src="./assets/experience.png" alt="Experience icon" class="icon" />
+            <h3>Experience</h3>
+            <p>3+ years <br />Backend Development</p>
+          </div>
+          <div class="details-container">
+            <img src="./assets/education.png" alt="Education icon" class="icon" />
+            <h3>Education</h3>
+            <p>B-Tech. Bachelors Degree</p>
+          </div>
+        </div>
+        <div class="text-container">
+          <p>
+            Senior Software Developer experienced in directing activities of workgroups. Develops strategies, provides
+            training, sets goals and obtains team feedback. Excellent interpersonal and communication skills. Big
+            picture focus with excellence in communicating goals and vision to succeed. Problem solver, networker, and
+            consensus builder.
+          </p>
+        </div>
+      </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#experience'" />
+  </section>
+  <section id="experience">
+    <p class="section__text__p1">Explore My</p>
+    <h1 class="title">Experience</h1>
+    <div class="experience-details-container">
+      <div class="about-containers">
+        <div class="details-container">
+          <h2 class="experience-sub-title">Development</h2>
+          <div class="article-container">
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Java</h3>
+                <p>Experienced</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Springboot</h3>
+                <p>Experienced</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>PostgreSql</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>React.js</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Python</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>HTML/CSS</h3>
+                <p>Experienced</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Angular</h3>
+                <p>Basic</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="details-container">
+          <h2 class="experience-sub-title">DevOps & Cloud</h2>
+          <div class="article-container">
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Azure</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Docker</h3>
+                <p>Intermediate</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Kubernetes</h3>
+                <p>Basic</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>GCP</h3>
+                <p>Basic</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Jenkins</h3>
+                <p>Basic</p>
+              </div>
+            </article>
+            <article>
+              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
+              <div>
+                <h3>Linux</h3>
+                <p>Basic</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#projects'" />
+  </section>
+  <section id="projects">
+    <p class="section__text__p1">Browse My Recent</p>
+    <h1 class="title">Projects</h1>
+    <div class="experience-details-container">
+      <div class="about-containers">
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/gatepax.png" alt="Project 2" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">GatePax AI</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/EnnobridgeTech/support-mail-management'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://gatepaxai.com/'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/amz.jpg" alt="Project 1" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">Amazon Clone</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn"
+              onclick="location.href='https://github.com/azifahmed/amazon-clone'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://clone-a42fc.web.app/'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img src="./assets/lmp.jpg" alt="Project 3" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">Lab Manager Portal</h2>
+          <div class="btn-container">
+            <button class="btn btn-color-2 project-btn" onclick="location.href='/'">
+              Github
+            </button>
+            <button class="btn btn-color-2 project-btn" onclick="location.href='https://qzen.rmb-ss.jp/qzen/home'">
+              Live Demo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#contact'" />
+  </section>
+  <section id="recommend">
+    <p class="section__text__p1">Checkout My</p>
+    <h1 class="title">Recommendations</h1>
+    <div class="experience-details-container">
+      <div class="about-containers">
+        <div class="details-container color-container">
+          <h2 class="experience-sub-title recommend-title">Dhananjay Sarnaik</h2>
+          <p class="section__text__p1">Technical Manager (Rakuten)</p>
+          <br>
+
+          <div class="article-container">
+            <p>
+              I am writing to highly recommend Asif for any role that requires a Java Development Lead with expertise in
+              advanced Java, Spring Boot, and micro service based frameworks. With me, Asif has worked on two
+              enterprise-level applications, LMP and Petri, where he showcased exceptional skills and expertise. His
+              contributions have been invaluable, and he consistently exceeded expectations.
+
+              Asif's technical prowess in Java development is impressive. He has a deep understanding of advanced Java
+              concepts and has successfully applied this knowledge to develop complex solutions for LMP and Petri. His
+              work on Spring Boot and micro service based frameworks was exceptional, leading to the creation of robust
+              and scalable applications. Asif's ability to design and implement solutions in these technologies is truly
+              commendable.
+            </p>
+
+          </div>
+          <div class="btn-container">
+            <button class="btn btn-color-2 recommend-btn"
+              onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/details/recommendations/?detailScreenTabIndex=0'">
+              Read more...
+            </button>
+          </div>
+
+        </div>
+        <div class="details-container color-container">
+          <h2 class="experience-sub-title recommend-title">Shailendra Pratap Singh</h2>
+          <p class="section__text__p1">Head of QA (Coredge.io)</p>
+          <br>
+
+          <div class="article-container">
+            <p>
+              Asif's expertise in backend development and DevOps is truly noteworthy. Notably, he played a pivotal role
+              in architecting key features within Petri, including Library Management, batch execution within a single
+              pod for cost reduction, and data encryption. His consistent delivery of exceptional results stands out.
+
+              Asif's meticulous attention to detail and unwavering dedication to data security underscore his commitment
+              to excellence. These qualities, coupled with his technical skills, make Asif a valuable asset to any team.
+            </p>
+
+          </div>
+          <div class="btn-container">
+            <button class="btn btn-color-2 recommend-btn"
+              onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/details/recommendations/?detailScreenTabIndex=0'">
+              Read more...
+            </button>
+          </div>
+
+        </div>
+      </div>
+      <!-- <div class="about-containers">
+        <div class="details-container color-container">
+          <h2 class="experience-sub-title recommend-title">Neela Surendra</h2>
+          <p class="section__text__p1">Solutions Architect (Tech Mahindra)</p>
+          <br>
+
+          <div class="article-container">
+            <p>
+              Asif is a committed proactive team player who also has leadership capabilities. He takes ownership of the
+              product and delivers it on time with end users in mind.
+              He is indeed a crucial asset to our team. Wishing him good luck for his prosperous career.
+            </p>
+
+          </div>
+
+        </div>
+        <div class="details-container color-container">
+          <h2 class="experience-sub-title recommend-title">Rishabh Pawan</h2>
+          <p class="section__text__p1">Technical Lead (Rakuten)</p>
+          <br>
+
+          <div class="article-container">
+            <p>
+              I had the privilege of working with Asif on a critical product.
+
+              Asif possesses deep knowledge and expertise in Java & backend development and has a natural ability to
+              learn and develop product using difference technologies. He is an excellent communicator. His approachable
+              nature and calm demeanor create a positive and productive work environment that fosters collaboration and
+              innovation
+              Throughout the project, Asif took complete ownership of the application's development, and his attention
+              to detail and analytical skills ensured that the project was completed to the highest possible standard.
+            </p>
+
+          </div>
+          <div class="btn-container">
+            <button class="btn btn-color-2 recommend-btn"
+              onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/details/recommendations/?detailScreenTabIndex=0'">
+              Read more...
+            </button>
+          </div>
+
+        </div>
+        
+      </div> -->
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#contact'" />
+  </section>
+  <br>
+  <section id="contact">
+    <p class="section__text__p1">Get in Touch</p>
+    <h1 class="title">Contact Me</h1>
+    <div class="contact-info-upper-container">
+      <div class="contact-info-container">
+        <img src="./assets/email.png" alt="Email icon" class="icon contact-icon email-icon" />
+        <p><a href="mailto:azifahmed1997@gmail.com">azifahmed1997@gmail.com</a></p>
+      </div>
+      <div class="contact-info-container">
+        <img src="./assets/linkedin.png" alt="LinkedIn icon" class="icon contact-icon" />
+        <p><a href="https://www.linkedin.com/in/asif-ahmed-645267184">LinkedIn</a></p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <nav>
+      <div class="nav-links-container">
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <p>Copyright &#169; Asif Ahmed. All Rights Reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
