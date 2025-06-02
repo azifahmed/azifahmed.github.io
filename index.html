@@ -5,66 +5,387 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="mediaqueries.css" />
+  <title>Asif Ahmed - Portfolio</title>
+  <style>
+    /* CSS Reset & Base Styles */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-primary: 'Arial', sans-serif;
+
+      /* Color Palette Definitions (can be expanded) */
+      /* Default: Pastel Green */
+      --palette-pastel-green-primary: #77dd77;
+      --palette-pastel-green-primary-hover: #5cb85c;
+      --palette-pastel-green-btn-text: #ffffff;
+      --palette-pastel-green-btn-dark-text: #121212;
+
+
+      /* Sky Blue */
+      --palette-sky-blue-primary: #87CEEB;
+      --palette-sky-blue-primary-hover: #6495ED;
+      --palette-sky-blue-btn-text: #ffffff;
+      --palette-sky-blue-btn-dark-text: #121212;
+
+
+      /* Warm Coral */
+      --palette-warm-coral-primary: #FF7F50;
+      --palette-warm-coral-primary-hover: #FF6347;
+      --palette-warm-coral-btn-text: #ffffff;
+      --palette-warm-coral-btn-dark-text: #121212;
+
+
+      /* Cool Lavender */
+      --palette-cool-lavender-primary: #E6E6FA;
+      --palette-cool-lavender-primary-hover: #D8BFD8;
+      --palette-cool-lavender-btn-text: #333333; /* Darker text for light lavender */
+      --palette-cool-lavender-btn-dark-text: #e0e0e0;
+
+
+      /* Initial Theme Colors (will be overridden by JS) */
+      --primary-theme-color: var(--palette-pastel-green-primary);
+      --primary-theme-color-hover: var(--palette-pastel-green-primary-hover);
+      --primary-btn-text-color: var(--palette-pastel-green-btn-text);
+      --primary-btn-dark-text-color: var(--palette-pastel-green-btn-dark-text);
+
+
+      /* Light Mode Base */
+      --bg-color-light: #ffffff;
+      --text-color-light: #333333;
+      --secondary-color-light: #5a6268;
+      --nav-bg-light: #f8f9fa;
+      --nav-link-light: #333333;
+      --card-bg-light: #ffffff;
+      --card-border-light: #e0e0e0;
+      --btn-secondary-bg-light: #6c757d;
+      --btn-secondary-text-light: #ffffff;
+      --icon-filter-light: none;
+      --section-divider-light: #eeeeee;
+
+      /* Dark Mode Base */
+      --bg-color-dark: #121212;
+      --text-color-dark: #e0e0e0;
+      --secondary-color-dark: #adb5bd;
+      --nav-bg-dark: #1e1e1e;
+      --nav-link-dark: #e0e0e0;
+      --card-bg-dark: #1e1e1e;
+      --card-border-dark: #333333;
+      --btn-secondary-bg-dark: #495057;
+      --btn-secondary-text-dark: #e0e0e0;
+      --icon-filter-dark: invert(100%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
+      --section-divider-dark: #2c2c2c;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 16px;
+    }
+
+    body.light-mode {
+      --bg-color: var(--bg-color-light);
+      --text-color: var(--text-color-light);
+      --primary-color: var(--primary-theme-color); /* Uses the dynamic theme color */
+      --primary-color-hover: var(--primary-theme-color-hover);
+      --secondary-color: var(--secondary-color-light);
+      --nav-bg: var(--nav-bg-light);
+      --nav-link-color: var(--nav-link-light);
+      --nav-link-hover-color: var(--primary-theme-color-hover);
+      --card-bg: var(--card-bg-light);
+      --card-border: var(--card-border-light);
+      --btn-primary-bg: var(--primary-theme-color);
+      --btn-primary-text: var(--primary-btn-text-color);
+      --btn-secondary-bg: var(--btn-secondary-bg-light);
+      --btn-secondary-text: var(--btn-secondary-text-light);
+      --icon-filter: var(--icon-filter-light);
+      --section-divider: var(--section-divider-light);
+    }
+
+    body.dark-mode {
+      --bg-color: var(--bg-color-dark);
+      --text-color: var(--text-color-dark);
+      --primary-color: var(--primary-theme-color); /* Uses the dynamic theme color, often lighter in dark mode */
+      --primary-color-hover: var(--primary-theme-color-hover);
+      --secondary-color: var(--secondary-color-dark);
+      --nav-bg: var(--nav-bg-dark);
+      --nav-link-color: var(--nav-link-dark);
+      --nav-link-hover-color: var(--primary-theme-color);
+      --card-bg: var(--card-bg-dark);
+      --card-border: var(--card-border-dark);
+      --btn-primary-bg: var(--primary-theme-color);
+      --btn-primary-text: var(--primary-btn-dark-text-color); /* Use dark text on light primary for dark mode if needed */
+      --btn-secondary-bg: var(--btn-secondary-bg-dark);
+      --btn-secondary-text: var(--btn-secondary-text-dark);
+      --icon-filter: var(--icon-filter-dark);
+      --section-divider: var(--section-divider-dark);
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    .icon { width: 24px; height: 24px; filter: var(--icon-filter); }
+    body.dark-mode .social-icon, body.light-mode .social-icon { filter: none; }
+    body.dark-mode .contact-icon, body.dark-mode .checkmark-icon, body.dark-mode .arrow-icon, body.dark-mode .experience-icon, body.dark-mode .education-icon { filter: var(--icon-filter-dark); }
+    body.light-mode .contact-icon, body.light-mode .checkmark-icon, body.light-mode .arrow-icon, body.light-mode .experience-icon, body.light-mode .education-icon { filter: var(--icon-filter-light); }
+
+    .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 2rem 0; }
+    h1, h2, h3 { color: var(--primary-color); margin-bottom: 1rem; }
+    .section__text__p1 { text-align: center; color: var(--secondary-color); font-size: 1.1rem; }
+    .title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+
+    nav { background-color: var(--nav-bg); color: var(--nav-link-color); padding: 0.5rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+    #desktop-nav, #hamburger-nav { display: flex; justify-content: space-around; align-items: center; padding: 0.5rem 1rem; }
+    #desktop-nav .logo, #hamburger-nav .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary-color); }
+    .nav-links { list-style: none; display: flex; }
+    .nav-links li a { color: var(--nav-link-color); text-decoration: none; margin: 0 0.75rem; font-size: 0.9rem; transition: color 0.3s; }
+    .nav-links li a:hover { color: var(--nav-link-hover-color); }
+    #hamburger-nav { display: none; }
+    .hamburger-icon { display: none; cursor: pointer; }
+    .hamburger-icon span { display: block; width: 25px; height: 3px; background-color: var(--nav-link-color); margin: 5px 0; transition: 0.3s; }
+
+    .nav-controls { display: flex; align-items: center; gap: 0.5rem; }
+    #theme-toggle-desktop, #theme-toggle-mobile { background: none; border: none; cursor: pointer; padding: 0.5rem; }
+    #theme-toggle-desktop img, #theme-toggle-mobile img { width: 24px; height: 24px; filter: var(--icon-filter); }
+    #color-palette-select-desktop, #color-palette-select-mobile {
+        padding: 0.3rem 0.5rem;
+        border-radius: 4px;
+        border: 1px solid var(--card-border);
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+    #color-palette-select-mobile { margin-left: 8px;}
+
+
+    #profile { display: flex; align-items: center; justify-content: center; gap: 5rem; min-height: 80vh; padding: 2rem 0; }
+    #profile .section__pic-container img.profile-pic { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color); }
+    .section__text__p1.hello { font-size: 1.5rem; color: var(--secondary-color); }
+    .title.profile-name { font-size: 3rem; margin-bottom: 0.5rem; text-align: center;}
+    .section__text__p2.role { font-size: 1.75rem; color: var(--secondary-color); margin-bottom: 1.5rem; }
+    .btn-container { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+    .btn { padding: 0.75rem 1.5rem; border-radius: 2rem; text-decoration: none; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s; border: none; cursor: pointer; }
+    .btn-color-1 { background-color: var(--btn-primary-bg); color: var(--btn-primary-text); }
+    .btn-color-2 { background-color: var(--btn-secondary-bg); color: var(--btn-secondary-text); border: 1px solid var(--btn-secondary-bg); }
+    body.dark-mode .btn-color-2 { border: 1px solid var(--btn-secondary-text); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    #socials-container { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
+    #socials-container .icon { width: 32px; height: 32px; cursor: pointer; }
+
+    #about .section-container { display: flex; gap: 2rem; align-items: flex-start; }
+    #about .section__pic-container img.about-pic { width: 350px; height: auto; object-fit: cover; border-radius: 1rem; }
+    .about-details-container { flex-grow: 1; }
+    .about-containers { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .details-container { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 1rem; padding: 1.5rem; text-align: center; flex: 1; }
+    .details-container .icon { margin-bottom: 0.5rem; width: 30px; height:30px; }
+    .details-container h3 { font-size: 1.2rem; margin-bottom: 0.5rem;}
+    .text-container p { text-align: justify; font-size: 1rem; }
+
+    #work-experience, #education-details, #awards-section, #skills { padding: 3rem 0; }
+    .experience-item, .education-item, .award-item { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; }
+    .company-role, .degree-college, .award-item h3 { font-size: 1.3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 0.25rem; }
+    .date-location, .date-gpa, .date-issuer { font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 1rem; }
+    .experience-item ul { list-style-position: inside; padding-left: 0; }
+    .experience-item ul li { margin-bottom: 0.5rem; }
+
+    #skills .about-containers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    #skills .details-container { text-align: left; }
+    .experience-sub-title { font-size: 1.4rem; margin-bottom: 1rem; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; }
+    .article-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+    #skills article { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; border-radius: 0.5rem; }
+    #skills article .icon { width: 20px; height: 20px;}
+    #skills article h3 { font-size: 1rem; margin: 0; color: var(--text-color); }
+    #skills article p { font-size: 0.9rem; color: var(--secondary-color); margin: 0; }
+
+    #projects .about-containers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    #projects .details-container.color-container { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .project-img-container { /* New container for project images */
+        width: 100%;
+        height: 200px; /* Or adjust as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: var(--card-bg); /* Match card or make transparent */
+        border-bottom: 1px solid var(--card-border);
+    }
+    .project-img {
+        max-width: 100%; /* Ensure it doesn't overflow container */
+        max-height: 100%; /* Ensure it doesn't overflow container */
+        object-fit: cover; /* Default, can be overridden */
+    }
+    .project-img.opsmotor-logo {
+        object-fit: contain; /* For Opsmotor logo to ensure full visibility */
+        padding: 10px; /* Add some padding around the contained logo */
+    }
+    .project-title { font-size: 1.5rem; margin: 1rem 1.5rem; text-align: left; }
+    #projects .btn-container { padding: 0 1.5rem 1.5rem 1.5rem; margin-top: auto; justify-content: flex-start; }
+
+    #recommend .about-containers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .recommend-title { font-size: 1.5rem; margin: 1rem 1.5rem; text-align: left; }
+    #recommend .section__text__p1 { text-align: left; margin: 0 1.5rem 1rem 1.5rem; font-size: 1rem; }
+    #recommend .article-container p { margin: 0 1.5rem 1rem 1.5rem; text-align: justify; font-size: 0.95rem; }
+    #recommend .btn-container { padding: 0 1.5rem 1.5rem 1.5rem; justify-content: flex-start; }
+
+    #contact { padding-bottom: 4rem; }
+    .contact-info-upper-container { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+    .contact-info-container { display: flex; align-items: center; gap: 0.5rem; background-color: var(--card-bg); padding: 1rem 1.5rem; border-radius: 1rem; border: 1px solid var(--card-border); }
+    .contact-info-container .icon { width: 28px; height: 28px; }
+    .contact-info-container p a { color: var(--text-color); text-decoration: none; font-size: 1rem; }
+    .contact-info-container p a:hover { text-decoration: underline; color: var(--primary-color); }
+
+    footer { background-color: var(--nav-bg); padding: 1.5rem 0; text-align: center; border-top: 1px solid var(--section-divider); }
+    footer .nav-links-container .nav-links { justify-content: center; margin-bottom: 1rem; }
+    footer p { color: var(--secondary-color); font-size: 0.9rem; }
+
+    .arrow { position: absolute; right: -5rem; bottom: 2.5rem; width: 30px; height: 30px; cursor: pointer; }
+    section { position: relative; padding-top: 6vh; padding-bottom: 6vh; }
+
+    @media screen and (max-width: 1024px) {
+        .container { width: 90%; }
+        #profile { flex-direction: column; text-align: center; gap: 2rem;}
+        #profile .section__pic-container img.profile-pic { width: 250px; height: 250px;}
+        .btn-container { flex-direction: column; gap: 0.5rem; align-items: center;}
+        .btn { width: 80%; max-width: 300px;}
+        #about .section-container { flex-direction: column; align-items: center; }
+        #about .section__pic-container img.about-pic { width: 80%; max-width: 300px;}
+        .about-containers { flex-direction: column; }
+        #skills .about-containers, #projects .about-containers, #recommend .about-containers { grid-template-columns: 1fr; }
+        .arrow { display: none; }
+    }
+
+    @media screen and (max-width: 768px) {
+      h1.title { font-size: 2rem; }
+      h2.experience-sub-title { font-size: 1.2rem; }
+      #desktop-nav { display: none; }
+      #hamburger-nav { display: flex; }
+      .hamburger-icon { display: block; }
+      #mobile-nav-links {
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background-color: var(--nav-bg); flex-direction: column; align-items: center;
+        max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      #mobile-nav-links.open { max-height: 600px; } /* Increased for new controls */
+      #mobile-nav-links li { padding: 0.8rem 0; width: 100%; text-align: center; border-top: 1px solid var(--section-divider); }
+      #mobile-nav-links li:first-child { border-top: none; }
+      #mobile-nav-links li a { margin: 0; font-size: 1rem; }
+      
+      .mobile-nav-controls { /* Container for theme and color toggles in mobile menu */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 0;
+          width: 100%;
+      }
+      #theme-toggle-mobile, #color-palette-select-mobile { font-size: 0.9rem; }
+      #theme-toggle-mobile img { margin-right: 5px; }
+
+
+      #profile { min-height: auto; padding: 4rem 0;}
+      #profile .section__pic-container img.profile-pic { width: 200px; height: 200px;}
+      .title.profile-name { font-size: 2.5rem; }
+      .section__text__p2.role { font-size: 1.3rem; }
+      .article-container { grid-template-columns: 1fr; }
+      #skills article { justify-content: flex-start; }
+      .contact-info-upper-container { flex-direction: column; gap: 1rem; align-items: center;}
+      .contact-info-container { width: 90%; justify-content: center; }
+      footer .nav-links { flex-direction: column; gap: 0.5rem;}
+    }
+
+  </style>
 </head>
 
-<body>
+<body class="light-mode">
   <nav id="desktop-nav">
     <div class="logo">Asif Ahmed</div>
     <div>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
+        <li><a href="#work-experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#education-details">Education</a></li>
+        <li><a href="#awards-section">Awards</a></li>
         <li><a href="#recommend">Recommendations</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+    </div>
+    <div class="nav-controls">
+        <select id="color-palette-select-desktop" aria-label="Select Color Theme">
+            <option value="pastel-green">Pastel Green</option>
+            <option value="sky-blue">Sky Blue</option>
+            <option value="warm-coral">Warm Coral</option>
+            <option value="cool-lavender">Cool Lavender</option>
+        </select>
+        <button id="theme-toggle-desktop" aria-label="Toggle theme">
+            <img src="./assets/moon.png" alt="Toggle Dark Mode" id="theme-icon-desktop">
+        </button>
     </div>
   </nav>
   <nav id="hamburger-nav">
     <div class="logo">Asif Ahmed</div>
     <div class="hamburger-menu">
-      <div class="hamburger-icon" onclick="toggleMenu()">
+      <div class="hamburger-icon" onclick="toggleMobileMenu()">
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <div class="menu-links">
-        <li><a href="#about" onclick="toggleMenu()">About</a></li>
-        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-        <li><a href="#recommend" onclick="toggleMenu()">Recommendations</a></li>
-        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-      </div>
+      <ul class="nav-links" id="mobile-nav-links">
+        <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+        <li><a href="#work-experience" onclick="closeMobileMenu()">Experience</a></li>
+        <li><a href="#skills" onclick="closeMobileMenu()">Skills</a></li>
+        <li><a href="#projects" onclick="closeMobileMenu()">Projects</a></li>
+        <li><a href="#education-details" onclick="closeMobileMenu()">Education</a></li>
+        <li><a href="#awards-section" onclick="closeMobileMenu()">Awards</a></li>
+        <li><a href="#recommend" onclick="closeMobileMenu()">Recommendations</a></li>
+        <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+        <li class="mobile-nav-controls-item"> <!-- Encapsulate controls in an li for structure -->
+            <div class="mobile-nav-controls">
+                <select id="color-palette-select-mobile" aria-label="Select Color Theme">
+                    <option value="pastel-green">Pastel Green</option>
+                    <option value="sky-blue">Sky Blue</option>
+                    <option value="warm-coral">Warm Coral</option>
+                    <option value="cool-lavender">Cool Lavender</option>
+                </select>
+                <button id="theme-toggle-mobile" aria-label="Toggle theme">
+                    <img src="./assets/moon.png" alt="Toggle Dark Mode" id="theme-icon-mobile">
+                    <span>Theme</span>
+                </button>
+            </div>
+        </li>
+      </ul>
     </div>
   </nav>
-  <section id="profile">
+
+  <section id="profile" class="container">
     <div class="section__pic-container">
-      <img src="./assets/profile-pic.png" alt="Asif Ahmed profile picture" />
+      <img src="./assets/profile-pic.png" alt="Asif Ahmed profile picture" class="profile-pic" />
     </div>
     <div class="section__text">
-      <p class="section__text__p1">Hello, I'm</p>
-      <h1 class="title">Asif Ahmed</h1>
-      <p class="section__text__p2">Software Developer</p>
+      <p class="section__text__p1 hello">Hello, I'm</p>
+      <h1 class="title profile-name">Asif Ahmed</h1>
+      <p class="section__text__p2 role">Senior Software Developer / Tech Lead</p>
       <div class="btn-container">
-        <button class="btn btn-color-2" onclick="window.open('./assets/asif.pdf')">
-          Download CV
-        </button>
-        <button class="btn btn-color-1" onclick="toggleMenu()">
-          Contact Info
-        </button>
+        <button class="btn btn-color-1" onclick="window.open('./assets/asif_resume.pdf')"> Download CV </button>
+        <button class="btn btn-color-2" onclick="location.href='#contact'"> Contact Info </button>
       </div>
       <div id="socials-container">
-        <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon"
-          onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/'" />
-        <img src="./assets/github.png" alt="My Github profile" class="icon"
-          onclick="location.href='https://github.com/azifahmed'" />
+        <img src="./assets/linkedin.png" alt="My LinkedIn profile" class="icon social-icon" onclick="location.href='https://linkedin.com/in/azif-ahmed'" />
+        <img src="./assets/github.png" alt="My Github profile" class="icon social-icon" onclick="location.href='https://github.com/azifahmed'" />
       </div>
     </div>
   </section>
-  <section id="about">
+
+  <section id="about" class="container">
     <p class="section__text__p1">Get To Know More</p>
     <h1 class="title">About Me</h1>
     <div class="section-container">
@@ -74,299 +395,197 @@
       <div class="about-details-container">
         <div class="about-containers">
           <div class="details-container">
-            <img src="./assets/experience.png" alt="Experience icon" class="icon" />
+            <img src="./assets/experience.png" alt="Experience icon" class="icon experience-icon" />
             <h3>Experience</h3>
-            <p>3+ years <br />Backend Development</p>
+            <p>3.5+ years <br />Enterprise Software Development</p>
           </div>
           <div class="details-container">
-            <img src="./assets/education.png" alt="Education icon" class="icon" />
+            <img src="./assets/education.png" alt="Education icon" class="icon education-icon" />
             <h3>Education</h3>
-            <p>B-Tech. Bachelors Degree</p>
+            <p>B.Tech. Civil Engineering</p>
           </div>
         </div>
-        <div class="text-container">
-          <p>
-            Senior Software Developer experienced in directing activities of workgroups. Develops strategies, provides
-            training, sets goals and obtains team feedback. Excellent interpersonal and communication skills. Big
-            picture focus with excellence in communicating goals and vision to succeed. Problem solver, networker, and
-            consensus builder.
-          </p>
-        </div>
+        <div class="text-container"> <p> Senior Java Developer/Tech Lead with extensive experience in designing and delivering scalable enterprise applications, leveraging modern architectures and cloud technologies to drive performance and efficiency. </p> </div>
       </div>
     </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#experience'" />
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#work-experience'" />
   </section>
-  <section id="experience">
-    <p class="section__text__p1">Explore My</p>
+
+  <section id="work-experience" class="container">
+    <p class="section__text__p1">My Professional Journey</p>
     <h1 class="title">Experience</h1>
-    <div class="experience-details-container">
-      <div class="about-containers">
-        <div class="details-container">
-          <h2 class="experience-sub-title">Development</h2>
-          <div class="article-container">
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Java</h3>
-                <p>Experienced</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Springboot</h3>
-                <p>Experienced</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>PostgreSql</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>React.js</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Python</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>HTML/CSS</h3>
-                <p>Experienced</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Angular</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-          </div>
+    <div class="experience-list">
+        <div class="experience-item">
+            <div class="company-role">SENIOR SOFTWARE ENGINEER - Opsmotor</div>
+            <div class="date-location">June 2024 – Present | Bangalore, India</div>
+            <p><strong>Projects:</strong> Opsmotor</p>
+            <ul> <li>Designed and implemented a distributed system architecture supporting monolithic and microservices deployments, forming the baseline for product development.</li> <li>Boosted system performance by 30%, by migrating to Kubernetes, enabling acquisition of high-value clients like Legal & General.</li> <li>Developed cloud and image security scanners and cloud connectors for comprehensive security and compliance.</li> <li>Scaled the multi-tenant cloud security platform to support over 1,000 tenants with 99.9% uptime.</li> <li>Reduced false positives by 80%, enhancing client satisfaction and operational efficiency.</li> <li>Optimized CI/CD pipelines with Kubernetes tools, cutting deployment times by 40%.</li> <li>Developed a supply chain feature to manage laptops and private cloud resources across large tech enterprises by designing a single point of control within the platform.</li> <li>Developed custom agents for system scanning and AI-driven capabilities, enhancing automation and platform intelligence which provides resolutions using Gen AI from knowledge base.</li> </ul>
         </div>
-        <div class="details-container">
-          <h2 class="experience-sub-title">DevOps & Cloud</h2>
-          <div class="article-container">
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Azure</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Docker</h3>
-                <p>Intermediate</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Kubernetes</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>GCP</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Jenkins</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-            <article>
-              <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-              <div>
-                <h3>Linux</h3>
-                <p>Basic</p>
-              </div>
-            </article>
-          </div>
+        <div class="experience-item">
+            <div class="company-role">SOFTWARE ENGINEER - HSC (Client: Rakuten)</div>
+            <div class="date-location">July 2022 - May 2024 | Bangalore, India</div>
+            <p><strong>Projects:</strong> LMP, Petri, Incident AI</p>
+            <ul> <li>Architected and led the development of Incident AI, a microservices-based product integrating SolarWinds and ServiceNow, cutting down ticket resolution time from 2 weeks to 1 day for Carnival Princess Cruise lines.</li> <li>Implemented an AI tool based on RAG (Retrieval-Augmented Generation) to cluster similar tickets, drastically reducing resolution times using OpenAI APIs and DistilBert.</li> <li>Provided automated resolution suggestions for recurring incidents, reducing manual triage effort and improving SLA compliance.</li> <li>Led a team of 8 to deliver the MVP for the Test Automation Tool (Petri), achieving 100% sprint completion rates and driving its adoption across Rakuten Mobile's QA department.</li> <li>Designed custom integrations with Jira and Elastic Repository for the LMP project, enhancing project tracking efficiency and increasing visibility across 5 major development teams.</li> <li>Applied ML and LLM technologies to automate ticketing and resolution workflows, transforming operational efficiency for enterprise clients.</li> </ul>
         </div>
-      </div>
+        <div class="experience-item">
+            <div class="company-role">JUNIOR SOFTWARE DEVELOPER - TCS</div>
+            <div class="date-location">Jan 2021 – June 2022 | Bangalore, India</div>
+            <p><strong>Projects:</strong> Enhanced Annuity Platform (EAP)</p>
+            <ul> <li>Played a key role in the core and migration teams for project EAP, delivering a 13-year-old matured system in a new data-driven architecture, making it highly configurable for client Legal & General.</li> <li>Developed and deployed applications in Azure Cloud using Java 11 (Spring and Azure Functions), while configuring Azure Function Apps and managing APIs with Terraform to streamline infrastructure and enable seamless integration.</li> </ul>
+        </div>
     </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#projects'" />
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#skills'" />
   </section>
-  <section id="projects">
+
+  <section id="skills" class="container">
+    <p class="section__text__p1">Explore My</p>
+    <h1 class="title">Skills</h1>
+    <div class="about-containers">
+        <div class="details-container">
+          <h2 class="experience-sub-title">Languages & Frameworks</h2>
+          <div class="article-container"> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Java</h3><p>Experienced</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Spring Boot</h3><p>Experienced</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Python</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>JavaScript</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>React</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>LangChain</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>LangGraph</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>RAG</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Bash</h3><p>Basic</p></div></article> </div>
+        </div>
+        <div class="details-container">
+          <h2 class="experience-sub-title">Cloud, DevOps & Tools</h2>
+          <div class="article-container"> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Azure</h3><p>Experienced</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>AWS</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>GCP</h3><p>Beginner</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Docker</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Kubernetes</h3><p>Experienced</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Git</h3><p>Experienced</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Jenkins</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>OpenAI API</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Ollama</h3><p>Basic</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Robin Cloud</h3><p>Basic</p></div></article> </div>
+        </div>
+        <div class="details-container">
+            <h2 class="experience-sub-title">Operating Systems</h2>
+            <div class="article-container"> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Linux</h3><p>Experienced</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Unix</h3><p>Intermediate</p></div></article> <article><img src="./assets/checkmark.png" alt="Checkmark" class="icon checkmark-icon" /><div><h3>Windows</h3><p>Experienced</p></div></article> </div>
+          </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#projects'" />
+  </section>
+
+  <section id="projects" class="container">
     <p class="section__text__p1">Browse My Recent</p>
     <h1 class="title">Projects</h1>
-    <div class="experience-details-container">
-      <div class="about-containers">
+    <div class="about-containers">
         <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/gatepax.png" alt="Project 2" class="project-img" />
+          <div class="project-img-container">
+            <img src="./assets/opsmotor.png" alt="Opsmotor AI Project" class="project-img opsmotor-logo" />
           </div>
-          <h2 class="experience-sub-title project-title">GatePax AI</h2>
-          <div class="btn-container">
-            <button class="btn btn-color-2 project-btn"
-              onclick="location.href='https://github.com/EnnobridgeTech/support-mail-management'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://gatepaxai.com/'">
-              Live Demo
-            </button>
-          </div>
+          <h2 class="experience-sub-title project-title">Opsmotor AI</h2>
+          <div class="btn-container"> <button class="btn btn-color-2 project-btn" onclick="location.href='https://opsmotor.ai/'"> Live Site </button> <button class="btn btn-color-2 project-btn" onclick="location.href='https://opsmotor.opsmotor.net/'"> View Demo </button> </div>
         </div>
         <div class="details-container color-container">
-          <div class="article-container">
-            <img src="./assets/amzn.png" alt="Project 1" class="project-img" />
+          <div class="project-img-container">
+            <img src="./assets/gatepax.png" alt="GatePax AI Project" class="project-img" />
           </div>
-          <h2 class="experience-sub-title project-title">Amazon Clone</h2>
+          <h2 class="experience-sub-title project-title">GatePax AI</h2>
+          <div class="btn-container"> <button class="btn btn-color-2 project-btn" onclick="location.href='https://github.com/EnnobridgeTech/support-mail-management'"> Github </button> <button class="btn btn-color-2 project-btn" onclick="location.href='https://gatepaxai.com/'"> Live Demo </button> </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="project-img-container">
+            <img src="./assets/lmp.jpg" alt="Lab Manager Portal Project" class="project-img" />
+          </div>
+          <h2 class="experience-sub-title project-title">Lab Manager Portal</h2>
+          <div class="btn-container"> <button class="btn btn-color-2 project-btn" onclick="location.href='https://qzen.rmb-ss.jp/qzen/home'"> Live Demo </button> </div>
+        </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#education-details'" />
+  </section>
+
+  <section id="education-details" class="container">
+    <p class="section__text__p1">My Academic Background</p>
+    <h1 class="title">Education</h1>
+    <div class="education-list">
+        <div class="education-item">
+            <div class="degree-college">B-TECH IN CIVIL ENGINEERING</div>
+            <p>NSS College of Engineering, Palakkad, Kerala</p>
+            <div class="date-gpa">June 2016 - April 2020 | GPA: 8.27</div>
+        </div>
+    </div>
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#awards-section'" />
+  </section>
+
+  <section id="awards-section" class="container">
+      <p class="section__text__p1">My Recognitions</p>
+      <h1 class="title">Awards</h1>
+      <div class="awards-list">
+          <div class="award-item">
+              <h3>Rising Star Award (HSC)</h3>
+              <div class="date-issuer">2024 & 2023 | Hughes Systique</div>
+              <ul> <li>Awarded the Rising Star Award in consecutive years (2023 and 2024).</li> <li>Recognized as the youngest developer to architect and produce a solution, securing a client after a successful demo.</li> </ul>
+          </div>
+          <div class="award-item">
+              <h3>Star of the Month and Team Awards (TCS)</h3>
+              <div class="date-issuer">2022 | TCS</div>
+              <ul> <li>Received Star of the Month (multiple times) and other team awards for elevated performance and delivery during critical times.</li> <li>Recognized for outstanding contributions during high-pressure moments, receiving these awards on multiple occasions.</li> </ul>
+          </div>
+      </div>
+      <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#recommend'" />
+  </section>
+
+  <section id="recommend" class="container">
+    <h1 class="title">Recommendations</h1>
+    <div class="about-containers"> <!-- This grid contains all recommendation cards -->
+
+        <!-- New Recommendation: Tom Burger -->
+        <div class="details-container color-container">
+          <h2 class="experience-sub-title recommend-title">Tom Burger</h2>
+          <p class="section__text__p1">CTO & Chief Architect at OpsMotor </p>
+          <div class="article-container">
+            <p>
+              I've had the chance to work with Asif Ahmed, and it's been a great experience. He's a very solid software engineer with strong skills in system design, backend, and DevOps. He’s got a good knowledge about cloud, networking and Kubernetes, and he knows how to get things done in a smart, outcome-focused way.
+              <br><br>
+              Asif is easy to work with - always pleasant, professional, and great with customers. He really helps keep things running smoothly and makes everyone's job easier. Any team would be lucky to have him on board. If you have the chance to hire him, you should.
+            </p>
+          </div>
           <div class="btn-container">
-            <button class="btn btn-color-2 project-btn"
-              onclick="location.href='https://github.com/azifahmed/amazon-clone'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://clone-a42fc.web.app/'">
-              Live Demo
+            <button class="btn btn-color-2 recommend-btn"
+              onclick="location.href='https://www.linkedin.com/in/azif-ahmed/details/recommendations/'">
+              View on LinkedIn
             </button>
           </div>
         </div>
 
+        <!-- New Recommendation: Madhav Sonthalia -->
         <div class="details-container color-container">
+          <h2 class="experience-sub-title recommend-title">Madhav Sonthalia</h2>
+          <p class="section__text__p1">Founder/CEO at OpsMotor Inc</p>
           <div class="article-container">
-            <img src="./assets/lmp.jpg" alt="Project 3" class="project-img" />
+            <p>
+              Asif has been an incredible asset to OpsMotor over the past year. He’s a rockstar engineer who consistently goes above and beyond expectations. He single-handedly led one of our most critical POCs with a major client—while still meeting all his own deliverables.
+              <br><br>
+              Asif’s dedication, technical skill, and ownership mindset make him stand out. I highly recommend him—any organization would be lucky to have someone of his caliber.
+            </p>
           </div>
-          <h2 class="experience-sub-title project-title">Lab Manager Portal</h2>
           <div class="btn-container">
-            <button class="btn btn-color-2 project-btn" onclick="location.href='/'">
-              Github
-            </button>
-            <button class="btn btn-color-2 project-btn" onclick="location.href='https://qzen.rmb-ss.jp/qzen/home'">
-              Live Demo
+            <button class="btn btn-color-2 recommend-btn"
+              onclick="location.href='https://www.linkedin.com/in/azif-ahmed/details/recommendations/'">
+              View on LinkedIn
             </button>
           </div>
         </div>
-      </div>
-    </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#contact'" />
-  </section>
-  <section id="recommend">
-    <p class="section__text__p1">Checkout My</p>
-    <h1 class="title">Recommendations</h1>
-    <div class="experience-details-container">
-      <div class="about-containers">
+
+        <!-- Existing Recommendation: Dhananjay Sarnaik -->
         <div class="details-container color-container">
           <h2 class="experience-sub-title recommend-title">Dhananjay Sarnaik</h2>
           <p class="section__text__p1">Technical Manager (Rakuten)</p>
-          <br>
-
+          <!-- You can add a relationship <p> here if you have that info -->
           <div class="article-container">
             <p>
               I am writing to highly recommend Asif for any role that requires a Java Development Lead with expertise in
               advanced Java, Spring Boot, and micro service based frameworks. With me, Asif has worked on two
               enterprise-level applications, LMP and Petri, where he showcased exceptional skills and expertise. His
-              contributions have been invaluable, and he consistently exceeded expectations.
-
-              Asif's technical prowess in Java development is impressive. He has a deep understanding of advanced Java
-              concepts and has successfully applied this knowledge to develop complex solutions for LMP and Petri. His
-              work on Spring Boot and micro service based frameworks was exceptional, leading to the creation of robust
-              and scalable applications. Asif's ability to design and implement solutions in these technologies is truly
-              commendable.
+              contributions have been invaluable, and he consistently exceeded expectations...
             </p>
-
           </div>
           <div class="btn-container">
             <button class="btn btn-color-2 recommend-btn"
-              onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/details/recommendations/?detailScreenTabIndex=0'">
-              Read more...
+              onclick="location.href='https://www.linkedin.com/in/azif-ahmed/details/recommendations/'">
+              View on LinkedIn
             </button>
           </div>
-
         </div>
-        <div class="details-container color-container">
-          <h2 class="experience-sub-title recommend-title">Shailendra Pratap Singh</h2>
-          <p class="section__text__p1">Head of QA (Coredge.io)</p>
-          <br>
 
-          <div class="article-container">
-            <p>
-              Asif's expertise in backend development and DevOps is truly noteworthy. Notably, he played a pivotal role
-              in architecting key features within Petri, including Library Management, batch execution within a single
-              pod for cost reduction, and data encryption. His consistent delivery of exceptional results stands out.
-
-              Asif's meticulous attention to detail and unwavering dedication to data security underscore his commitment
-              to excellence. These qualities, coupled with his technical skills, make Asif a valuable asset to any team.
-            </p>
-
-          </div>
-          <div class="btn-container">
-            <button class="btn btn-color-2 recommend-btn"
-              onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/details/recommendations/?detailScreenTabIndex=0'">
-              Read more...
-            </button>
-          </div>
-
-        </div>
-      </div>
-      <!-- <div class="about-containers">
-        <div class="details-container color-container">
-          <h2 class="experience-sub-title recommend-title">Neela Surendra</h2>
-          <p class="section__text__p1">Solutions Architect (Tech Mahindra)</p>
-          <br>
-
-          <div class="article-container">
-            <p>
-              Asif is a committed proactive team player who also has leadership capabilities. He takes ownership of the
-              product and delivers it on time with end users in mind.
-              He is indeed a crucial asset to our team. Wishing him good luck for his prosperous career.
-            </p>
-
-          </div>
-
-        </div>
-        <div class="details-container color-container">
-          <h2 class="experience-sub-title recommend-title">Rishabh Pawan</h2>
-          <p class="section__text__p1">Technical Lead (Rakuten)</p>
-          <br>
-
-          <div class="article-container">
-            <p>
-              I had the privilege of working with Asif on a critical product.
-
-              Asif possesses deep knowledge and expertise in Java & backend development and has a natural ability to
-              learn and develop product using difference technologies. He is an excellent communicator. His approachable
-              nature and calm demeanor create a positive and productive work environment that fosters collaboration and
-              innovation
-              Throughout the project, Asif took complete ownership of the application's development, and his attention
-              to detail and analytical skills ensured that the project was completed to the highest possible standard.
-            </p>
-
-          </div>
-          <div class="btn-container">
-            <button class="btn btn-color-2 recommend-btn"
-              onclick="location.href='https://www.linkedin.com/in/asif-ahmed-645267184/details/recommendations/?detailScreenTabIndex=0'">
-              Read more...
-            </button>
-          </div>
-
-        </div>
-        
-      </div> -->
+      
     </div>
-    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" onclick="location.href='./#contact'" />
+    <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow arrow-icon" onclick="location.href='./#contact'" />
   </section>
-  <br>
-  <section id="contact">
+
+  <section id="contact" class="container">
     <p class="section__text__p1">Get in Touch</p>
     <h1 class="title">Contact Me</h1>
     <div class="contact-info-upper-container">
@@ -375,25 +594,146 @@
         <p><a href="mailto:azifahmed1997@gmail.com">azifahmed1997@gmail.com</a></p>
       </div>
       <div class="contact-info-container">
-        <img src="./assets/linkedin.png" alt="LinkedIn icon" class="icon contact-icon" />
-        <p><a href="https://www.linkedin.com/in/asif-ahmed-645267184">LinkedIn</a></p>
+        <img src="./assets/linkedin.png" alt="LinkedIn icon" class="icon contact-icon social-icon" />
+        <p><a href="https://linkedin.com/in/azif-ahmed">LinkedIn</a></p>
+      </div>
+      <div class="contact-info-container">
+        <img src="./assets/phone.png" alt="Phone icon" class="icon contact-icon" /> <!-- Ensure phone.png is in assets -->
+        <p><a href="tel:+918086233505">+91 8086233505</a></p>
       </div>
     </div>
   </section>
+
   <footer>
     <nav>
       <div class="nav-links-container">
         <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#work-experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
     </nav>
-    <p>Copyright &#169; Asif Ahmed. All Rights Reserved.</p>
+    <p>Copyright © Asif Ahmed. All Rights Reserved.</p>
   </footer>
-  <script src="script.js"></script>
-</body>
 
+  <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-nav-links");
+      const icon = document.querySelector(".hamburger-icon");
+      menu.classList.toggle("open");
+      icon.classList.toggle("open");
+    }
+    function closeMobileMenu() {
+        const menu = document.getElementById("mobile-nav-links");
+        const icon = document.querySelector(".hamburger-icon");
+        menu.classList.remove("open");
+        icon.classList.remove("open");
+    }
+
+    // Theme and Color Palette
+    const body = document.body;
+    const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+    const themeIconDesktop = document.getElementById('theme-icon-desktop');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const themeIconMobile = document.getElementById('theme-icon-mobile');
+    const colorSelectDesktop = document.getElementById('color-palette-select-desktop');
+    const colorSelectMobile = document.getElementById('color-palette-select-mobile');
+    const root = document.documentElement;
+
+    const colorPalettes = {
+        'pastel-green': {
+            primary: 'var(--palette-pastel-green-primary)',
+            hover: 'var(--palette-pastel-green-primary-hover)',
+            btnText: 'var(--palette-pastel-green-btn-text)',
+            btnDarkText: 'var(--palette-pastel-green-btn-dark-text)'
+        },
+        'sky-blue': {
+            primary: 'var(--palette-sky-blue-primary)',
+            hover: 'var(--palette-sky-blue-primary-hover)',
+            btnText: 'var(--palette-sky-blue-btn-text)',
+            btnDarkText: 'var(--palette-sky-blue-btn-dark-text)'
+        },
+        'warm-coral': {
+            primary: 'var(--palette-warm-coral-primary)',
+            hover: 'var(--palette-warm-coral-primary-hover)',
+            btnText: 'var(--palette-warm-coral-btn-text)',
+            btnDarkText: 'var(--palette-warm-coral-btn-dark-text)'
+        },
+        'cool-lavender': {
+            primary: 'var(--palette-cool-lavender-primary)',
+            hover: 'var(--palette-cool-lavender-primary-hover)',
+            btnText: 'var(--palette-cool-lavender-btn-text)',
+            btnDarkText: 'var(--palette-cool-lavender-btn-dark-text)'
+        }
+    };
+
+    function applyAppearanceMode(mode) {
+        body.classList.remove('light-mode', 'dark-mode');
+        body.classList.add(mode + '-mode');
+        if (mode === 'dark') {
+            if(themeIconDesktop) themeIconDesktop.src = './assets/sun.png';
+            if(themeIconDesktop) themeIconDesktop.alt = 'Toggle Light Mode';
+            if(themeIconMobile) themeIconMobile.src = './assets/sun.png';
+            if(themeIconMobile) themeIconMobile.alt = 'Toggle Light Mode';
+        } else {
+            if(themeIconDesktop) themeIconDesktop.src = './assets/moon.png';
+            if(themeIconDesktop) themeIconDesktop.alt = 'Toggle Dark Mode';
+            if(themeIconMobile) themeIconMobile.src = './assets/moon.png';
+            if(themeIconMobile) themeIconMobile.alt = 'Toggle Dark Mode';
+        }
+        localStorage.setItem('appearanceMode', mode);
+    }
+
+    function applyColorPalette(paletteName) {
+        const palette = colorPalettes[paletteName];
+        if (palette) {
+            root.style.setProperty('--primary-theme-color', palette.primary);
+            root.style.setProperty('--primary-theme-color-hover', palette.hover);
+            root.style.setProperty('--primary-btn-text-color', palette.btnText);
+            root.style.setProperty('--primary-btn-dark-text-color', palette.btnDarkText);
+            localStorage.setItem('colorPalette', paletteName);
+            // Sync select dropdowns
+            if(colorSelectDesktop) colorSelectDesktop.value = paletteName;
+            if(colorSelectMobile) colorSelectMobile.value = paletteName;
+        }
+    }
+
+    function toggleAppearanceModeOnClick() {
+        const currentMode = localStorage.getItem('appearanceMode') || (body.classList.contains('dark-mode') ? 'dark' : 'light');
+        const newMode = currentMode === 'dark' ? 'light' : 'dark';
+        applyAppearanceMode(newMode);
+    }
+
+    if(themeToggleDesktop) themeToggleDesktop.addEventListener('click', toggleAppearanceModeOnClick);
+    if(themeToggleMobile) themeToggleMobile.addEventListener('click', () => {
+        toggleAppearanceModeOnClick();
+    });
+
+    if(colorSelectDesktop) colorSelectDesktop.addEventListener('change', (e) => applyColorPalette(e.target.value));
+    if(colorSelectMobile) colorSelectMobile.addEventListener('change', (e) => {
+        applyColorPalette(e.target.value);
+    });
+
+    // Load saved settings or defaults
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMode = localStorage.getItem('appearanceMode');
+        const savedPalette = localStorage.getItem('colorPalette') || 'sky-blue'; // Default to pastel-green
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        applyColorPalette(savedPalette); // Apply color palette first
+
+        if (savedMode) {
+            applyAppearanceMode(savedMode);
+        } else if (prefersDark) {
+            applyAppearanceMode('dark');
+        } else {
+            applyAppearanceMode('light');
+        }
+    });
+  </script>
+</body>
 </html>
