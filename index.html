@@ -15,6 +15,9 @@
       margin: 0;
       padding: 0;
     }
+    html { /* <<< ADD THIS RULE HERE <<< */
+      scroll-behavior: smooth;
+    }
 
     :root {
       --font-primary: 'Arial', sans-serif;
@@ -130,8 +133,15 @@
     }
 
     img { max-width: 100%; height: auto; display: block; }
-    .icon { width: 24px; height: 24px; filter: var(--icon-filter); }
-    body.dark-mode .social-icon, body.light-mode .social-icon { filter: none; }
+    .icon {
+        width: 24px;
+        height: 24px;
+        filter: var(--icon-filter);
+        transition: filter 0.3s ease; /* Added for smooth filter changes */
+    }
+    /* REMOVED: body.dark-mode .social-icon, body.light-mode .social-icon { filter: none; } */
+    /* This removal allows .social-icon (which also has .icon) to correctly use var(--icon-filter) */
+    
     body.dark-mode .contact-icon, body.dark-mode .checkmark-icon, body.dark-mode .arrow-icon, body.dark-mode .experience-icon, body.dark-mode .education-icon { filter: var(--icon-filter-dark); }
     body.light-mode .contact-icon, body.light-mode .checkmark-icon, body.light-mode .arrow-icon, body.light-mode .experience-icon, body.light-mode .education-icon { filter: var(--icon-filter-light); }
 
@@ -143,9 +153,27 @@
     nav { background-color: var(--nav-bg); color: var(--nav-link-color); padding: 0.5rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
     #desktop-nav, #hamburger-nav { display: flex; justify-content: space-around; align-items: center; padding: 0.5rem 1rem; }
     #desktop-nav .logo, #hamburger-nav .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary-color); }
+    /* Styling for the logo link */
+    .logo-link {
+        text-decoration: none;
+        color: inherit; /* Inherits color from .logo which is var(--primary-color) */
+    }
+
     .nav-links { list-style: none; display: flex; }
-    .nav-links li a { color: var(--nav-link-color); text-decoration: none; margin: 0 0.75rem; font-size: 0.9rem; transition: color 0.3s; }
+    .nav-links li a {
+        color: var(--nav-link-color);
+        text-decoration: none;
+        margin: 0 0.75rem;
+        font-size: 0.9rem;
+        transition: color 0.3s, transform 0.15s ease-out; /* Added transform for animation */
+    }
     .nav-links li a:hover { color: var(--nav-link-hover-color); }
+    /* Animation for desktop nav links on click */
+    .nav-links li a:active {
+        transform: scale(0.92);
+        color: var(--primary-color);
+    }
+
     #hamburger-nav { display: none; }
     .hamburger-icon { display: none; cursor: pointer; }
     .hamburger-icon span { display: block; width: 25px; height: 3px; background-color: var(--nav-link-color); margin: 5px 0; transition: 0.3s; }
@@ -177,7 +205,7 @@
     body.dark-mode .btn-color-2 { border: 1px solid var(--btn-secondary-text); }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     #socials-container { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
-    #socials-container .icon { width: 32px; height: 32px; cursor: pointer; }
+    #socials-container .icon { width: 32px; height: 32px; cursor: pointer; } /* These are .icon.social-icon */
 
     #about .section-container { display: flex; gap: 2rem; align-items: flex-start; }
     #about .section__pic-container img.about-pic { width: 350px; height: auto; object-fit: cover; border-radius: 1rem; }
@@ -237,7 +265,7 @@
     #contact { padding-bottom: 4rem; }
     .contact-info-upper-container { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
     .contact-info-container { display: flex; align-items: center; gap: 0.5rem; background-color: var(--card-bg); padding: 1rem 1.5rem; border-radius: 1rem; border: 1px solid var(--card-border); }
-    .contact-info-container .icon { width: 28px; height: 28px; }
+    .contact-info-container .icon { width: 28px; height: 28px; } /* This includes .icon.contact-icon.social-icon for LinkedIn */
     .contact-info-container p a { color: var(--text-color); text-decoration: none; font-size: 1rem; }
     .contact-info-container p a:hover { text-decoration: underline; color: var(--primary-color); }
 
@@ -274,9 +302,26 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
       #mobile-nav-links.open { max-height: 600px; } /* Increased for new controls */
-      #mobile-nav-links li { padding: 0.8rem 0; width: 100%; text-align: center; border-top: 1px solid var(--section-divider); }
+      #mobile-nav-links li { padding: 0; width: 100%; text-align: center; border-top: 1px solid var(--section-divider); } /* padding adjusted for full <a> click area */
       #mobile-nav-links li:first-child { border-top: none; }
-      #mobile-nav-links li a { margin: 0; font-size: 1rem; }
+      #mobile-nav-links li a {
+          display: block; /* Make <a> take full li width/height */
+          padding: 0.8rem 0; /* Apply padding to <a> instead of <li> */
+          margin: 0;
+          font-size: 1rem;
+          transition: color 0.3s, background-color 0.15s ease-out; /* Added background-color transition */
+      }
+      /* Animation for mobile nav links on click */
+      #mobile-nav-links li a:active {
+          background-color: var(--primary-color-hover);
+          /* Text color should contrast with primary-color-hover */
+      }
+      body.light-mode #mobile-nav-links li a:active {
+          color: var(--primary-btn-text-color);
+      }
+      body.dark-mode #mobile-nav-links li a:active {
+          color: var(--primary-btn-dark-text-color);
+      }
       
       .mobile-nav-controls { /* Container for theme and color toggles in mobile menu */
           display: flex;
@@ -306,7 +351,7 @@
 
 <body class="light-mode">
   <nav id="desktop-nav">
-    <div class="logo">Asif Ahmed</div>
+    <div class="logo"><a href="#" class="logo-link">Asif Ahmed</a></div>
     <div>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
@@ -332,7 +377,7 @@
     </div>
   </nav>
   <nav id="hamburger-nav">
-    <div class="logo">Asif Ahmed</div>
+    <div class="logo"><a href="#" class="logo-link">Asif Ahmed</a></div>
     <div class="hamburger-menu">
       <div class="hamburger-icon" onclick="toggleMobileMenu()">
         <span></span>
@@ -620,21 +665,55 @@
   </footer>
 
   <script>
-    // Mobile Menu Toggle
+    // Mobile Menu Toggle & Auto-Close Logic
     function toggleMobileMenu() {
       const menu = document.getElementById("mobile-nav-links");
       const icon = document.querySelector(".hamburger-icon");
-      menu.classList.toggle("open");
+      const isOpen = menu.classList.toggle("open");
       icon.classList.toggle("open");
+
+      if (isOpen) {
+        // Menu is now open, listen for clicks outside
+        document.addEventListener('click', handleClickOutsideMenu, true);
+      } else {
+        // Menu is now closed, remove listener
+        document.removeEventListener('click', handleClickOutsideMenu, true);
+      }
     }
+
     function closeMobileMenu() {
         const menu = document.getElementById("mobile-nav-links");
         const icon = document.querySelector(".hamburger-icon");
-        menu.classList.remove("open");
-        icon.classList.remove("open");
+        if (menu.classList.contains("open")) { // Only act if it's open
+            menu.classList.remove("open");
+            icon.classList.remove("open");
+            document.removeEventListener('click', handleClickOutsideMenu, true);
+        }
     }
 
-    // Theme and Color Palette
+    function handleClickOutsideMenu(event) {
+        const hamburgerNav = document.getElementById("hamburger-nav"); // The entire hamburger nav element
+        const mobileNavLinks = document.getElementById("mobile-nav-links"); // The menu ul
+
+        // If menu isn't open, or no hamburgerNav, do nothing (and clean up listener just in case)
+        if (!mobileNavLinks || !mobileNavLinks.classList.contains("open") || !hamburgerNav) {
+            document.removeEventListener('click', handleClickOutsideMenu, true);
+            return;
+        }
+
+        // If the click happened INSIDE the hamburgerNav element, do nothing here.
+        // Clicks on icon are handled by toggleMobileMenu via its own onclick.
+        // Clicks on links are handled by closeMobileMenu via their own onclick.
+        // Clicks on logo are handled by its own click listener (which also calls closeMobileMenu).
+        if (hamburgerNav.contains(event.target)) {
+            return;
+        }
+
+        // If the click is OUTSIDE the hamburgerNav element, close the menu.
+        closeMobileMenu();
+    }
+
+    // Theme and Color Palette (Existing Logic)
     const body = document.body;
     const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
     const themeIconDesktop = document.getElementById('theme-icon-desktop');
@@ -717,11 +796,24 @@
     if(colorSelectMobile) colorSelectMobile.addEventListener('change', (e) => {
         applyColorPalette(e.target.value);
     });
+    
+    // Logo click to scroll to top
+    document.querySelectorAll('.logo-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // If mobile menu is open, close it
+            const mobileNavLinks = document.getElementById("mobile-nav-links");
+            if (mobileNavLinks && mobileNavLinks.classList.contains("open")) {
+                closeMobileMenu();
+            }
+        });
+    });
 
     // Load saved settings or defaults
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('appearanceMode');
-        const savedPalette = localStorage.getItem('colorPalette') || 'sky-blue'; // Default to pastel-green
+        const savedPalette = localStorage.getItem('colorPalette') || 'sky-blue'; // Default palette
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         applyColorPalette(savedPalette); // Apply color palette first
