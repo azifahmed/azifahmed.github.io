@@ -15,8 +15,115 @@
       margin: 0;
       padding: 0;
     }
-    html { /* <<< ADD THIS RULE HERE <<< */
+    html {
       scroll-behavior: smooth;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Scroll-triggered animations */
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out forwards;
+    }
+
+    .scale-in {
+      animation: scaleIn 0.6s ease-out forwards;
+    }
+
+    /* Intersection Observer classes */
+    .section-hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .section-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .item-hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .item-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     :root {
@@ -90,8 +197,9 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s ease, color 0.3s ease;
       font-size: 16px;
+      overflow-x: hidden;
     }
 
     body.light-mode {
@@ -148,9 +256,42 @@
     .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 2rem 0; }
     h1, h2, h3 { color: var(--primary-color); margin-bottom: 1rem; }
     .section__text__p1 { text-align: center; color: var(--secondary-color); font-size: 1.1rem; }
-    .title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+    .title { 
+      text-align: center; 
+      font-size: 2.5rem; 
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+      border-radius: 2px;
+    }
 
-    nav { background-color: var(--nav-bg); color: var(--nav-link-color); padding: 0.5rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+    nav { 
+      background-color: var(--nav-bg); 
+      color: var(--nav-link-color); 
+      padding: 0.5rem 0; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 0.3rem 0;
+    }
     #desktop-nav, #hamburger-nav { display: flex; justify-content: space-around; align-items: center; padding: 0.5rem 1rem; }
     #desktop-nav .logo, #hamburger-nav .logo { font-size: 1.8rem; font-weight: bold; color: var(--primary-color); }
     /* Styling for the logo link */
@@ -165,12 +306,30 @@
         text-decoration: none;
         margin: 0 0.75rem;
         font-size: 0.9rem;
-        transition: color 0.3s, transform 0.15s ease-out; /* Added transform for animation */
+        position: relative;
+        transition: color 0.3s ease, transform 0.15s ease-out;
+        padding: 0.3rem 0;
     }
-    .nav-links li a:hover { color: var(--nav-link-hover-color); }
+    .nav-links li a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+    }
+    .nav-links li a:hover { 
+        color: var(--nav-link-hover-color);
+        transform: translateY(-2px);
+    }
+    .nav-links li a:hover::after {
+        width: 100%;
+    }
     /* Animation for desktop nav links on click */
     .nav-links li a:active {
-        transform: scale(0.92);
+        transform: scale(0.92) translateY(0);
         color: var(--primary-color);
     }
 
@@ -193,31 +352,155 @@
     #color-palette-select-mobile { margin-left: 8px;}
 
 
-    #profile { display: flex; align-items: center; justify-content: center; gap: 5rem; min-height: 80vh; padding: 2rem 0; }
-    #profile .section__pic-container img.profile-pic { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color); }
+    #profile { 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 5rem; 
+      min-height: 80vh; 
+      padding: 2rem 0; 
+    }
+    #profile .section__pic-container { 
+      position: relative;
+      animation: fadeInUp 1s ease-out;
+    }
+    #profile .section__pic-container img.profile-pic { 
+      width: 300px; 
+      height: 300px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      border: 3px solid var(--primary-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    #profile .section__pic-container img.profile-pic:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+    #profile .section__text {
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
     .section__text__p1.hello { font-size: 1.5rem; color: var(--secondary-color); }
     .title.profile-name { font-size: 3rem; margin-bottom: 0.5rem; text-align: center;}
     .section__text__p2.role { font-size: 1.75rem; color: var(--secondary-color); margin-bottom: 1.5rem; }
     .btn-container { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
-    .btn { padding: 0.75rem 1.5rem; border-radius: 2rem; text-decoration: none; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s; border: none; cursor: pointer; }
-    .btn-color-1 { background-color: var(--btn-primary-bg); color: var(--btn-primary-text); }
-    .btn-color-2 { background-color: var(--btn-secondary-bg); color: var(--btn-secondary-text); border: 1px solid var(--btn-secondary-bg); }
+    .btn { 
+      padding: 0.75rem 1.5rem; 
+      border-radius: 2rem; 
+      text-decoration: none; 
+      font-weight: bold; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      border: none; 
+      cursor: pointer; 
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    .btn-color-1 { 
+      background-color: var(--btn-primary-bg); 
+      color: var(--btn-primary-text);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-color-2 { 
+      background-color: var(--btn-secondary-bg); 
+      color: var(--btn-secondary-text); 
+      border: 1px solid var(--btn-secondary-bg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
     body.dark-mode .btn-color-2 { border: 1px solid var(--btn-secondary-text); }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-    #socials-container { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
-    #socials-container .icon { width: 32px; height: 32px; cursor: pointer; } /* These are .icon.social-icon */
+    .btn:hover { 
+      transform: translateY(-3px) scale(1.02); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .btn:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+    #socials-container { 
+      display: flex; 
+      justify-content: center; 
+      gap: 1rem; 
+      margin-top: 1rem; 
+    }
+    #socials-container .icon { 
+      width: 32px; 
+      height: 32px; 
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      padding: 4px;
+    }
+    #socials-container .icon:hover {
+      transform: translateY(-5px) scale(1.15);
+      background-color: rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
     #about .section-container { display: flex; gap: 2rem; align-items: flex-start; }
     #about .section__pic-container img.about-pic { width: 350px; height: auto; object-fit: cover; border-radius: 1rem; }
     .about-details-container { flex-grow: 1; }
     .about-containers { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
-    .details-container { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 1rem; padding: 1.5rem; text-align: center; flex: 1; }
+    .details-container { 
+      background-color: var(--card-bg); 
+      border: 1px solid var(--card-border); 
+      border-radius: 1rem; 
+      padding: 1.5rem; 
+      text-align: center; 
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+    .details-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      border-color: var(--primary-color);
+    }
     .details-container .icon { margin-bottom: 0.5rem; width: 30px; height:30px; }
     .details-container h3 { font-size: 1.2rem; margin-bottom: 0.5rem;}
     .text-container p { text-align: justify; font-size: 1rem; }
 
     #work-experience, #education-details, #awards-section, #skills { padding: 3rem 0; }
-    .experience-item, .education-item, .award-item { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; }
+    .experience-item, .education-item, .award-item { 
+      background-color: var(--card-bg); 
+      border: 1px solid var(--card-border); 
+      border-radius: 1rem; 
+      padding: 1.5rem; 
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .experience-item::before, .education-item::before, .award-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    .experience-item:hover::before, .education-item:hover::before, .award-item:hover::before {
+      left: 100%;
+    }
+    .experience-item:hover, .education-item:hover, .award-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border-color: var(--primary-color);
+    }
     .company-role, .degree-college, .award-item h3 { font-size: 1.3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 0.25rem; }
     .date-location, .date-gpa, .date-issuer { font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 1rem; }
     .experience-item ul { list-style-position: inside; padding-left: 0; }
@@ -227,13 +510,45 @@
     #skills .details-container { text-align: left; }
     .experience-sub-title { font-size: 1.4rem; margin-bottom: 1rem; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; }
     .article-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
-    #skills article { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; border-radius: 0.5rem; }
-    #skills article .icon { width: 20px; height: 20px;}
+    #skills article { 
+      display: flex; 
+      align-items: center; 
+      gap: 0.75rem; 
+      padding: 0.5rem; 
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    #skills article:hover {
+      background-color: rgba(0, 0, 0, 0.03);
+      transform: translateX(5px);
+    }
+    body.dark-mode #skills article:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    #skills article .icon { 
+      width: 20px; 
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+    #skills article:hover .icon {
+      transform: scale(1.2);
+    }
     #skills article h3 { font-size: 1rem; margin: 0; color: var(--text-color); }
     #skills article p { font-size: 0.9rem; color: var(--secondary-color); margin: 0; }
 
     #projects .about-containers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-    #projects .details-container.color-container { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+    #projects .details-container.color-container { 
+      padding: 0; 
+      overflow: hidden; 
+      display: flex; 
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    #projects .details-container.color-container:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
     .project-img-container { /* New container for project images */
         width: 100%;
         height: 200px; /* Or adjust as needed */
@@ -248,6 +563,10 @@
         max-width: 100%; /* Ensure it doesn't overflow container */
         max-height: 100%; /* Ensure it doesn't overflow container */
         object-fit: cover; /* Default, can be overridden */
+        transition: transform 0.3s ease;
+    }
+    .project-img-container:hover .project-img {
+        transform: scale(1.1);
     }
     .project-img.opsmotor-logo {
         object-fit: contain; /* For Opsmotor logo to ensure full visibility */
@@ -264,7 +583,21 @@
 
     #contact { padding-bottom: 4rem; }
     .contact-info-upper-container { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
-    .contact-info-container { display: flex; align-items: center; gap: 0.5rem; background-color: var(--card-bg); padding: 1rem 1.5rem; border-radius: 1rem; border: 1px solid var(--card-border); }
+    .contact-info-container { 
+      display: flex; 
+      align-items: center; 
+      gap: 0.5rem; 
+      background-color: var(--card-bg); 
+      padding: 1rem 1.5rem; 
+      border-radius: 1rem; 
+      border: 1px solid var(--card-border);
+      transition: all 0.3s ease;
+    }
+    .contact-info-container:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      border-color: var(--primary-color);
+    }
     .contact-info-container .icon { width: 28px; height: 28px; } /* This includes .icon.contact-icon.social-icon for LinkedIn */
     .contact-info-container p a { color: var(--text-color); text-decoration: none; font-size: 1rem; }
     .contact-info-container p a:hover { text-decoration: underline; color: var(--primary-color); }
@@ -273,8 +606,38 @@
     footer .nav-links-container .nav-links { justify-content: center; margin-bottom: 1rem; }
     footer p { color: var(--secondary-color); font-size: 0.9rem; }
 
-    .arrow { position: absolute; right: -5rem; bottom: 2.5rem; width: 30px; height: 30px; cursor: pointer; }
-    section { position: relative; padding-top: 6vh; padding-bottom: 6vh; }
+    .arrow { 
+      position: absolute; 
+      right: -5rem; 
+      bottom: 2.5rem; 
+      width: 30px; 
+      height: 30px; 
+      cursor: pointer;
+      transition: all 0.3s ease;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .arrow:hover {
+      transform: translateX(5px) scale(1.2);
+      filter: brightness(1.2);
+    }
+    section { 
+      position: relative; 
+      padding-top: 6vh; 
+      padding-bottom: 6vh;
+    }
+    section.section-hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #profile {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     @media screen and (max-width: 1024px) {
         .container { width: 90%; }
@@ -461,8 +824,14 @@
     <h1 class="title">Experience</h1>
     <div class="experience-list">
         <div class="experience-item">
+            <div class="company-role">SENIOR SOFTWARE DEVELOPER - Bigbasket</div>
+            <div class="date-location">May 2025 – Present | Bangalore, India</div>
+            <p><strong>Projects:</strong> Bigbasket 2.0 Migration, Warehouse Management, Quality Control</p>
+            <ul> <li>Spearheaded address, subscription, and wallet migration from BBdaily to Bigbasket 2.0 using ML algorithms for address matching, deployed in production without disrupting customer operations.</li> <li>Built warehouse management OCR-AI system reducing goods receiving time from hours to minutes by auto-filling invoice details and matching confidence scores with purchase orders using ML.</li> <li>Developed admin panel streamlining finance team approval workflows for invoice processing and validation.</li> <li>Architected Quality Control and restacking system with FEFO/FIFO batching logic ensuring quality delivery from farmers' collection centers to customer doorstep.</li> </ul>
+        </div>
+        <div class="experience-item">
             <div class="company-role">SENIOR SOFTWARE ENGINEER - Opsmotor</div>
-            <div class="date-location">June 2024 – Present | Bangalore, India</div>
+            <div class="date-location">June 2024 – April 2025 | Bangalore, India</div>
             <p><strong>Projects:</strong> Opsmotor</p>
             <ul> <li>Designed and implemented a distributed system architecture supporting monolithic and microservices deployments, forming the baseline for product development.</li> <li>Boosted system performance by 30%, by migrating to Kubernetes, enabling acquisition of high-value clients like Legal & General.</li> <li>Developed cloud and image security scanners and cloud connectors for comprehensive security and compliance.</li> <li>Scaled the multi-tenant cloud security platform to support over 1,000 tenants with 99.9% uptime.</li> <li>Reduced false positives by 80%, enhancing client satisfaction and operational efficiency.</li> <li>Optimized CI/CD pipelines with Kubernetes tools, cutting deployment times by 40%.</li> <li>Developed a supply chain feature to manage laptops and private cloud resources across large tech enterprises by designing a single point of control within the platform.</li> <li>Developed custom agents for system scanning and AI-driven capabilities, enhancing automation and platform intelligence which provides resolutions using Gen AI from knowledge base.</li> </ul>
         </div>
@@ -810,6 +1179,50 @@
         });
     });
 
+    // Scroll animations with Intersection Observer
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                entry.target.classList.remove('section-hidden');
+            }
+        });
+    }, observerOptions);
+
+    const itemObserverOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
+    };
+
+    const itemObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('item-visible');
+                entry.target.classList.remove('item-hidden');
+            }
+        });
+    }, itemObserverOptions);
+
+    // Nav scroll effect
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const nav = document.querySelector('nav');
+        
+        if (currentScroll > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+        
+        lastScroll = currentScroll;
+    });
+
     // Load saved settings or defaults
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('appearanceMode');
@@ -824,6 +1237,27 @@
             applyAppearanceMode('dark');
         } else {
             applyAppearanceMode('light');
+        }
+
+        // Initialize scroll animations
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            section.classList.add('section-hidden');
+            observer.observe(section);
+        });
+
+        // Animate experience items, education items, and award items
+        const items = document.querySelectorAll('.experience-item, .education-item, .award-item, .details-container');
+        items.forEach(item => {
+            item.classList.add('item-hidden');
+            itemObserver.observe(item);
+        });
+
+        // Make profile section visible immediately
+        const profileSection = document.getElementById('profile');
+        if (profileSection) {
+            profileSection.classList.add('visible');
+            profileSection.classList.remove('section-hidden');
         }
     });
   </script>
